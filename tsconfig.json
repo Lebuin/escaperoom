@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "jsx": "react",
+    "sourceMap": true,
+    "module": "es6",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "outDir": "./dist/",
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  }
+}

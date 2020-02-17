@@ -1,0 +1,46 @@
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .85;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+:root {
+  --bg-color: #111111;
+  --text-color: #3ced00;
+  --flicker-duration: 2s;
+}
+
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  background: var(--bg-color);
+}
+
+body {
+  margin: 0;
+  cursor: none;
+
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  color: var(--text-color);
+  text-shadow: 0 0 2px var(--text-color);
+
+  animation: flicker var(--flicker-duration) ease alternate infinite;
+
+  white-space: pre;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
