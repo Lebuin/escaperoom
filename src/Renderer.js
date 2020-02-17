@@ -143,12 +143,14 @@ export default class Renderer {
     for(let i = 0; i < numRows; i += 1) {
       let row = cells[i];
       let numColumns = row.length;
-      for(let j = 0; j < row.numColumns; j += 1) {
+      for(let j = 0; j < numColumns; j += 1) {
         let cell = row[j];
-        let averageWidth = (this.width   + 1) / numColumns - 1;
-        let averageHeight = (this.height + 1) / numRows    - 1;
-        cell.width  = Math.floor(averageWidth)  + ((i / numColumns) < averageWidth  ? 1 : 0);
-        cell.height = Math.floor(averageHeight) + ((i / numRows   ) < averageHeight ? 1 : 0);
+        let baseWidth  = Math.floor((this.width  + 1) / numColumns - 1);
+        let baseHeight = Math.floor((this.height + 1) / numRows    - 1);
+        let numWideColumns = (this.width  + 1) % numColumns;
+        let numWideRows    = (this.height + 1) % numRows;
+        cell.width  = baseWidth  + (j < numWideColumns  ? 1 : 0);
+        cell.height = baseHeight + (i < numWideRows     ? 1 : 0);
       }
     }
 
@@ -156,10 +158,11 @@ export default class Renderer {
     // Render the text of each cell
     for(let i = 0; i < numRows; i += 1) {
       let row = cells[i];
-      for(let j = 0; j < row.numColumns; j += 1) {
+      let numColumns = row.length;
+      for(let j = 0; j < numColumns; j += 1) {
         let cell = row[j];
-        let text = cell.window.render(cell.width, row.height);
-        cell.text = util.padText(text, cell.width, row.height);
+        let text = cell.window.render(cell.width, cell.height);
+        cell.text = util.padText(text, cell.width, cell.height);
       }
     }
 
@@ -170,7 +173,7 @@ export default class Renderer {
       let row = cells[i];
       if(i > 0) {
         let rowPrev = cells[i - 1];
-        let line = '═'.repeat(this.width);
+        let line = new Array(this.width).fill('═');
         let intersectionsTop = this.getIntersections(rowPrev);
         let intersectionsBottom = this.getIntersections(row);
 
@@ -185,14 +188,13 @@ export default class Renderer {
         intersectionsBottom.forEach(x => {
           line[x] = '╦';
         });
+        text.push(line.join(''));
       }
-    }
-    for(let y = 0; y < heightTop; y += 1) {
-      text.push(texts.binair[y] + '║' + texts.legende[y]);
-    }
-    text.push('═'.repeat(widthLeft) + '╬' + '═'.repeat(widthRight));
-    for(let y = 0; y < heightBottom; y += 1) {
-      text.push(texts.tips[y] + '║' + texts.login[y]);
+
+      for(let y = 0; y < cells[i][0].height; y += 1) {
+        let cellLines = cells[i].map(cell => cell.text[y]);
+        text.push(cellLines.join('║'));
+      }
     }
 
     return text;
@@ -201,10 +203,10 @@ export default class Renderer {
 
   getIntersections(row) {
     let intersections = new Set();
-    let x = row[0].width + 1;
+    let x = row[0].width;
     for(let i = 1; i < row.length; i += 1) {
       intersections.add(x);
-      x += row[i].width;
+      x += row[i].width + 1;
     }
     return intersections;
   }
