@@ -14,7 +14,7 @@ module.exports = {
 
   devServer: {
     contentBase: './dist',
-    port: 80,
+    port: 8081,
     host: '0.0.0.0',
     disableHostCheck: true,
     hot: true,
@@ -51,7 +51,7 @@ module.exports = {
         },
       },
       {
-        test: /\.wav$/,
+        test: /\.(wav|mp4)$/,
         loader: 'file-loader',
         options: {
           name: '[path][name].[ext]'
@@ -64,4 +64,4 @@ module.exports = {
     filename: 'assets/js/[name].js',
     path: '/code/dist',
   },
-}
+};

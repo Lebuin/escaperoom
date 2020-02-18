@@ -5,6 +5,8 @@ import TipsWindow from './TipsWindow';
 import LoginWindow from './LoginWindow';
 import * as util from './util';
 
+import videoUrl from './media/escape.mp4';
+
 
 const BLINK_INTERVAL_FINISHED = 300;
 const State = Object.freeze({
@@ -19,6 +21,12 @@ export default class Renderer {
     this._bind();
 
     this.elem = elem;
+    this.elem.innerHTML = '';
+
+    this.elemText = document.createElement('div');
+    this.elemText.classList = 'text';
+    this.elem.appendChild(this.elemText);
+
     this.state = State.INITIALIZING;
     this.renderMethods = {
       [State.INITIALIZING]: this.renderInitializing.bind(this),
@@ -33,7 +41,6 @@ export default class Renderer {
 
     this.blink = false;
     this.blinkInterval = null;
-
 
     window.addEventListener('resize', this.onResize);
     this.onResize();
@@ -78,6 +85,16 @@ export default class Renderer {
     });
     this.windows.login.on('loggedIn', this.onLoggedIn);
 
+    this.elemVideoWrapper = document.createElement('div');
+    this.elemVideoWrapper.classList = 'video-wrapper';
+    this.elem.appendChild(this.elemVideoWrapper);
+
+    this.elemVideo = document.createElement('video');
+    this.elemVideo.src = videoUrl;
+    this.elemVideo.autoplay = true;
+    this.elemVideo.loop = true;
+    this.elemVideoWrapper.appendChild(this.elemVideo);
+
     this.state = State.RUNNING;
 
     this.render();
@@ -95,6 +112,9 @@ export default class Renderer {
       return;
     }
 
+    this.elem.removeChild(this.elemVideoWrapper);
+    this.elemVideo.pause();
+
     this.state = State.FINISHED;
     this.blinkInterval = setInterval(this.toggleBlink, BLINK_INTERVAL_FINISHED);
   }
@@ -108,7 +128,7 @@ export default class Renderer {
 
   render() {
     let text = this.renderMethods[this.state]();
-    this.elem.innerHTML = text.join('<br>');
+    this.elemText.innerHTML = text.join('<br>');
   }
 
 
@@ -197,6 +217,8 @@ export default class Renderer {
       }
     }
 
+    setTimeout(() => this.renderVideo(cells));
+
     return text;
   }
 
@@ -209,6 +231,30 @@ export default class Renderer {
       x += row[i].width + 1;
     }
     return intersections;
+  }
+
+
+  renderVideo(cells) {
+    let [row, column] = this.positions.video;
+    let left = column + 1;
+    let top = row + 1;
+    for(let i = 0; i < row; i += 1) {
+      top += cells[i].height;
+    }
+    for(let i = 0; i < column; i += 1) {
+      left += cells[row][i].width;
+    }
+
+    let width  = cells[row][column].width  - 2;
+    let height = cells[row][column].height - 2;
+
+    let charWidth  = this.elemText.clientWidth  / this.width;
+    let charHeight = this.elemText.clientHeight / this.height;
+
+    this.elemVideoWrapper.style.left   = Math.round(left   * charWidth ) + 'px';
+    this.elemVideoWrapper.style.top    = Math.round(top    * charHeight) + 'px';
+    this.elemVideoWrapper.style.width  = Math.round(width  * charWidth ) + 'px';
+    this.elemVideoWrapper.style.height = Math.round(height * charHeight) + 'px';
   }
 
 
