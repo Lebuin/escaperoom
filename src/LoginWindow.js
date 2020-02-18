@@ -66,9 +66,14 @@ export default class LoginWindow extends Window {
       return;
     }
 
+    let key = event.key.toUpperCase();
+    if(key.length !== 1) {
+      return;
+    }
+
     let focus = this.focus;
     let value = this[focus];
-    value += event.key.toUpperCase();
+    value += key;
     let correctValue = CREDENTIALS[this.focus];
 
     if(value === correctValue) {

@@ -73,10 +73,10 @@ export default class Renderer {
       login: new LoginWindow(),
     };
     this.positions = {  // [row, column]
-      binair: [0, 0],
+      binair: [1, 0],
       legende: [0, 1],
       video: [0, 2],
-      tips: [1, 0],
+      tips: [0, 0],
       login: [1, 1],
     };
 
