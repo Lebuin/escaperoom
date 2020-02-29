@@ -38,6 +38,11 @@ export default class TableWindow extends Window {
   }
 
 
+  destroy() {
+    window.removeEventListener('keydown', this._onKeyDown);
+  }
+
+
   get disabled() {
     return this.disabledUntil > Date.now();
   }

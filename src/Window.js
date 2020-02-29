@@ -12,6 +12,8 @@ export default class Window {
 
   _bind() {}
 
+  destroy() {}
+
 
   on(event, callback) {
     if(!this.callbacks[event]) {

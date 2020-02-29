@@ -25,13 +25,19 @@ export default class TipsWindow extends Window {
     this.start = Date.now();
     this.index = -1;
 
-    setInterval(this._updateTipIndex, 1000);
+    this.updateInterval = setInterval(this._updateTipIndex, 1000);
   }
 
   _bind() {
     super._bind();
     this._updateTipIndex = this._updateTipIndex.bind(this);
   }
+
+
+  destroy() {
+    clearInterval(this.updateInterval);
+  }
+
 
   _updateTipIndex() {
     if(this.index === TIPS.length - 1) {

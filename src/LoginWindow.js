@@ -2,22 +2,24 @@ import Window from './Window';
 import * as util from './util';
 
 
-const PROGRESS_START = 73;
+const PROGRESS_START = 6;
 const PROGRESS_END = 99;
 const PROGRESS_DURATION = 60 * 60 * 1000;
 
 const CREDENTIALS = {
-  username: 'NXMDPK',
-  password: 'HALKIDIKI',
+  username: 'EWASTE',
+  password: 'NXMDPK',
 };
 const LABELS = {
   username: 'Username',
   password: 'Password',
 };
 const BOX_WIDTH = 46;
-const RETRY_TIMEOUT = 5 * 60 * 1000;
+const RETRY_TIMEOUT = 2 * 60 * 1000;
 
 const CURSOR_BLINK_INTERVAL = 1000;
+const PROGRESS_BLINK_INTERVAL = 200;
+const PROGRESS_BLINK_START = 80;
 
 
 export default class LoginWindow extends Window {
@@ -35,29 +37,36 @@ export default class LoginWindow extends Window {
     this.disabledUntil = Date.now();
 
     this.focus = 'username';
-    this.blink = false;
+    this.blinkCursor = false;
+    this.blinkProgress = false;
 
     window.addEventListener('keypress', this._onKeyPress);
-    this.blinkInterval = setInterval(this._toggleBlink, CURSOR_BLINK_INTERVAL);
+    this.blinkCursorInterval = setInterval(this._toggleBlinkCursor, CURSOR_BLINK_INTERVAL);
+    this.blinkProgressInterval = setInterval(this._toggleBlinkProgress, PROGRESS_BLINK_INTERVAL);
   }
 
   _bind() {
     super._bind();
     this._onKeyPress = this._onKeyPress.bind(this);
-    this._toggleBlink = this._toggleBlink.bind(this);
+    this._toggleBlinkCursor = this._toggleBlinkCursor.bind(this);
+    this._toggleBlinkProgress = this._toggleBlinkProgress.bind(this);
   }
 
-  get minWidth() {
-    return 25;
-  }
 
-  get minHeight() {
-    return 20;
+  get progress() {
+    let duration = Date.now() - this.start;
+    return Math.min(
+      PROGRESS_END,
+      PROGRESS_START + duration / PROGRESS_DURATION * (PROGRESS_END - PROGRESS_START)
+    );
   }
-
 
   get disabled() {
     return this.disabledUntil > Date.now();
+  }
+
+  get shouldBlinkProgress() {
+    return this.progress >= PROGRESS_BLINK_START;
   }
 
 
@@ -84,7 +93,8 @@ export default class LoginWindow extends Window {
       } else {
         focus = null;
         window.removeEventListener('keypress', this._onKeyPress);
-        clearInterval(this.blinkInterval);
+        clearInterval(this.blinkCursorInterval);
+        clearInterval(this.blinkProgressInterval);
         this.emit('loggedIn');
       }
 
@@ -92,10 +102,12 @@ export default class LoginWindow extends Window {
       if(util.arePermutations(value, correctValue)) {
         this.errorMessage = LABELS[this.focus] + ' entered in an incorrect order.';
       } else {
-        this.errorMessage = 'Incorrect ' + LABELS[this.focus].toLowerCase() + '.';
+        this.errorMessage =
+          'Incorrect ' + LABELS[this.focus].toLowerCase()
+          + ' (' + value + ').';
       }
       this.disabledUntil = Date.now() + RETRY_TIMEOUT;
-      this.blink = false;
+      this.blinkCursor = false;
       value = '';
     }
 
@@ -105,8 +117,17 @@ export default class LoginWindow extends Window {
   }
 
 
-  _toggleBlink() {
-    this.blink = !this.disabled && !this.blink;
+  _toggleBlinkCursor() {
+    this.blinkCursor = !this.disabled && !this.blinkCursor;
+    this.requestRender();
+  }
+
+
+  _toggleBlinkProgress() {
+    if(!this.shouldBlinkProgress) {
+      return;
+    }
+    this.blinkProgress = !this.blinkProgress;
     this.requestRender();
   }
 
@@ -131,21 +152,16 @@ export default class LoginWindow extends Window {
     ];
 
     // Progress bar
-    let duration = Date.now() - this.start;
-    let progress = Math.min(
-      PROGRESS_END,
-      PROGRESS_START + duration / PROGRESS_DURATION * (PROGRESS_END - PROGRESS_START)
-    );
     let progressBarWidth = width - 14;
-    let progressWidth = Math.floor(progressBarWidth * progress / 100);
-    let progressStr = Math.floor(progress);
+    let progressWidth = Math.floor(progressBarWidth * this.progress / 100);
+    let progressStr = Math.floor(this.progress);
     if(progressStr < 10) {
       progressStr = '0' + progressStr;
     }
 
     text.push(
       '    '
-      + '█'.repeat(progressWidth)
+      + (this.blinkProgress ? '░' : '█').repeat(progressWidth)
       + '░'.repeat(progressBarWidth - progressWidth)
       + ' ' + progressStr + '%'
     );
@@ -167,7 +183,7 @@ export default class LoginWindow extends Window {
       let fieldLine = label + ': ' + renderValue;
       if(value.length < fieldWidth) {
         fieldLine += (
-          (this.focus === credential && this.blink ? '█' : '░')
+          (this.focus === credential && this.blinkCursor ? '█' : '░')
           + '░'.repeat(fieldWidth - value.length - 1)
         );
       }
@@ -199,7 +215,7 @@ export default class LoginWindow extends Window {
     return (
       label + ': '
       + value
-      + (focus && this.blink ? '█' : '░')
+      + (focus && this.blinkCursor ? '█' : '░')
       + '░'.repeat(fieldWidth - value.length - 1)
     );
   }

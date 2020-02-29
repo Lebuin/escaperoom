@@ -42,6 +42,16 @@ export default class Renderer {
     this.blink = false;
     this.blinkInterval = null;
 
+
+    this.elemVideoWrapper = document.createElement('div');
+    this.elemVideoWrapper.classList = 'video-wrapper';
+
+    this.elemVideo = document.createElement('video');
+    this.elemVideo.src = videoUrl;
+    this.elemVideo.loop = true;
+    this.elemVideoWrapper.appendChild(this.elemVideo);
+
+
     window.addEventListener('resize', this.onResize);
     this.onResize();
 
@@ -85,15 +95,8 @@ export default class Renderer {
     });
     this.windows.login.on('loggedIn', this.onLoggedIn);
 
-    this.elemVideoWrapper = document.createElement('div');
-    this.elemVideoWrapper.classList = 'video-wrapper';
     this.elem.appendChild(this.elemVideoWrapper);
-
-    this.elemVideo = document.createElement('video');
-    this.elemVideo.src = videoUrl;
-    this.elemVideo.autoplay = true;
-    this.elemVideo.loop = true;
-    this.elemVideoWrapper.appendChild(this.elemVideo);
+    this.elemVideo.play();
 
     this.state = State.RUNNING;
 
@@ -115,6 +118,10 @@ export default class Renderer {
     this.elem.removeChild(this.elemVideoWrapper);
     this.elemVideo.pause();
 
+    Object.values(this.windows).forEach(window => {
+      window.destroy();
+    });
+
     this.state = State.FINISHED;
     this.blinkInterval = setInterval(this.toggleBlink, BLINK_INTERVAL_FINISHED);
   }
@@ -134,8 +141,8 @@ export default class Renderer {
 
   renderInitializing() {
     return util.boxify(util.padText([
-      'All systems ready.',
-      'Press any key to start.'
+      'Screen locked.',
+      'Press any key to unlock.'
     ]));
   }
 
