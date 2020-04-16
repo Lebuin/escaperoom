@@ -1,4 +1,6 @@
 #!/bin/bash
+cd /opt/escaperoom/build
+
 
 # Install general dependencies
 apt-get install -y libffi-dev libssl-dev
@@ -17,7 +19,12 @@ pip3 install docker-compose
 
 
 # Install our own files
-cp escaperoom.desktop /etc/xdg/autostart
+mkdir /home/pi/.config/autostart
+cp escaperoom.desktop /home/pi/.config/autostart
+chown -R pi:pi /home/pi/.config/autostart
+
+cp escaperoom.desktop /home/pi/Desktop
+chown pi:pi /home/pi/Desktop/escaperoom.desktop
 
 cp rfid-reader.service /lib/systemd/system
 systemctl daemon-reload

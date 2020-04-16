@@ -1,5 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Escaperoom
-NoDisplay=false
-Exec=lxterminal -e /opt/escaperoom/build/escaperoom.sh
+Exec=lxterminal -e /opt/escaperoom/bin/escaperoom.sh

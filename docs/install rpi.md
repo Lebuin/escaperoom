@@ -36,3 +36,9 @@ cd escaperoom/build
 sudo ./install.sh
 sudo reboot
 ```
+
+---
+
+* SSH back into the RPI.
+* The escape room should now start automatically on boot every time. If it crashes, it can be restarted by double clicking the `Escaperoom` file on the desktop.
+* The first run may fail during the building of the Docker image, so it may be necessary to retry a few times.
