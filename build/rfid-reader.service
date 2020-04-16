@@ -1,0 +1,12 @@
+[Unit]
+Description=RFID Reader
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/opt/escaperoom/bin/rfid-reader.py
+User=pi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
