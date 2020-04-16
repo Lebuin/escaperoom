@@ -6,6 +6,7 @@ After=multi-user.target
 Type=idle
 ExecStart=/opt/escaperoom/bin/rfid-reader.py
 User=pi
+Environment=DISPLAY=:0
 Restart=always
 
 [Install]
