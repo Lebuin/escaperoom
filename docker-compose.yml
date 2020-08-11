@@ -6,4 +6,7 @@ services:
         - ./src:/code/src
     ports:
       - "8081:8081"
+    environment:
+      - VIRTUAL_HOST=escaperoom.seppe.dev
+      - LETSENCRYPT_HOST=escaperoom.seppe.dev
     network_mode: bridge
