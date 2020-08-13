@@ -7,6 +7,6 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - VIRTUAL_HOST=escaperoom.seppe.dev
-      - LETSENCRYPT_HOST=escaperoom.seppe.dev
+      - VIRTUAL_HOST=escaperoom.lenders.dev
+      - LETSENCRYPT_HOST=escaperoom.lenders.dev
     network_mode: bridge
