@@ -2,6 +2,7 @@ version: "3.1"
 services:
   node:
     build: ./
+    restart: always
     volumes:
         - ./src:/code/src
     ports:
@@ -9,4 +10,11 @@ services:
     environment:
       - VIRTUAL_HOST=escaperoom.lenders.dev
       - LETSENCRYPT_HOST=escaperoom.lenders.dev
-    network_mode: bridge
+    networks:
+      - reverse-proxy
+
+
+networks:
+  reverse-proxy:
+    external:
+      name: reverse-proxy_external
