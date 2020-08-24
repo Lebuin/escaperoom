@@ -8,8 +8,8 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - VIRTUAL_HOST=escaperoom.lenders.dev
-      - LETSENCRYPT_HOST=escaperoom.lenders.dev
+      - VIRTUAL_HOST=escaperoom.lenders.dev,escaperoom.seppelenders.be
+      - LETSENCRYPT_HOST=escaperoom.lenders.dev,escaperoom.seppelenders.be
     networks:
       - reverse-proxy
 
