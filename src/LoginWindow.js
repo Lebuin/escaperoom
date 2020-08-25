@@ -6,6 +6,24 @@ const PROGRESS_START = 6;
 const PROGRESS_END = 99;
 const PROGRESS_DURATION = 60 * 60 * 1000;
 
+const KEY_MAP = {
+  NumLock: 'K',
+  NumpadDivide: 'S',
+  NumpadMultiply: 'M',
+  NumpadSubtract: 'U',
+  Numpad7: 'E',
+  Numpad8: 'Y',
+  Numpad9: 'P',
+  NumpadAdd: 'A',
+  Numpad4: 'Z',
+  Numpad5: 'D',
+  Numpad6: 'G',
+  Numpad1: 'X',
+  Numpad2: 'W',
+  Numpad3: 'L',
+  Numpad0: 'N',
+  NumpadDecimal: 'T',
+}
 const CREDENTIALS = {
   username: 'EWASTE',
   password: 'NXMDPK',
@@ -40,14 +58,14 @@ export default class LoginWindow extends Window {
     this.blinkCursor = false;
     this.blinkProgress = false;
 
-    window.addEventListener('keypress', this._onKeyPress);
+    window.addEventListener('keydown', this._onKeyDown);
     this.blinkCursorInterval = setInterval(this._toggleBlinkCursor, CURSOR_BLINK_INTERVAL);
     this.blinkProgressInterval = setInterval(this._toggleBlinkProgress, PROGRESS_BLINK_INTERVAL);
   }
 
   _bind() {
     super._bind();
-    this._onKeyPress = this._onKeyPress.bind(this);
+    this._onKeyDown = this._onKeyDown.bind(this);
     this._toggleBlinkCursor = this._toggleBlinkCursor.bind(this);
     this._toggleBlinkProgress = this._toggleBlinkProgress.bind(this);
   }
@@ -70,21 +88,22 @@ export default class LoginWindow extends Window {
   }
 
 
-  _onKeyPress(event) {
+  _onKeyDown(event) {
     if(this.disabledUntil > Date.now()) {
-      return;
-    }
-
-    let key = event.key.toUpperCase();
-    if(key.length !== 1) {
       return;
     }
 
     let focus = this.focus;
     let value = this[focus];
-    value += key;
-    let correctValue = CREDENTIALS[this.focus];
+    let key = KEY_MAP[event.code];
 
+    if(event.key === 'Backspace') {
+      value = value.substring(0, value.length - 1);
+    } else if(key) {
+      value += key;
+    }
+
+    let correctValue = CREDENTIALS[this.focus];
     if(value === correctValue) {
       this.errorMessage = '';
       if(this.focus === 'username') {
@@ -92,7 +111,7 @@ export default class LoginWindow extends Window {
         this.successMessage = 'Correct username. Enter your password:';
       } else {
         focus = null;
-        window.removeEventListener('keypress', this._onKeyPress);
+        window.removeEventListener('keydown', this._onKeyDown);
         clearInterval(this.blinkCursorInterval);
         clearInterval(this.blinkProgressInterval);
         this.emit('loggedIn');
