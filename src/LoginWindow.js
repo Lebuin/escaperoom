@@ -23,6 +23,7 @@ const KEY_MAP = {
   Numpad3: 'L',
   Numpad0: 'N',
   NumpadDecimal: 'T',
+  Backspace: 'Backspace',
 }
 const CREDENTIALS = {
   username: 'EWASTE',
@@ -95,12 +96,12 @@ export default class LoginWindow extends Window {
 
     let focus = this.focus;
     let value = this[focus];
-    let key = KEY_MAP[event.code];
+    let input = KEY_MAP[event.code];
 
-    if(event.key === 'Backspace') {
+    if(input === 'Backspace') {
       value = value.substring(0, value.length - 1);
-    } else if(key) {
-      value += key;
+    } else if(input) {
+      value += input;
     }
 
     let correctValue = CREDENTIALS[this.focus];
