@@ -1,8 +1,12 @@
+import successUrl from './media/success.wav';
+import errorUrl from './media/error.wav';
 import Window from './Window';
 import * as util from './util';
 
 
-const RETRY_TIMEOUT = 5 * 60 * 1000;
+const SUCCESS = new Audio(successUrl);
+const ERROR = new Audio(errorUrl);
+const RETRY_TIMEOUT = 2 * 60 * 1000;
 
 const TABLE = {
   Γ: '957280',
@@ -54,10 +58,13 @@ export default class TableWindow extends Window {
     }
 
     if(event.altKey && event.key === 'l') {
+      SUCCESS.play();
       this.locked = false;
       window.removeEventListener('keydown', this._onKeyDown);
       this.requestRender();
+
     } else if(event.altKey && event.key === 'k') {
+      ERROR.play();
       this.disabledUntil = Date.now() + RETRY_TIMEOUT;
       if(!this.countdownInterval) {
         this.countdownInterval = setInterval(this._countdown, 1000);

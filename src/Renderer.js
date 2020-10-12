@@ -5,9 +5,11 @@ import TipsWindow from './TipsWindow';
 import LoginWindow from './LoginWindow';
 import * as util from './util';
 
+import completeUrl from './media/complete.wav';
 import videoUrl from './media/escape.mp4';
 
 
+const COMPLETE = new Audio(completeUrl);
 const BLINK_INTERVAL_FINISHED = 300;
 const State = Object.freeze({
   INITIALIZING: 'initializing',
@@ -124,6 +126,7 @@ export default class Renderer {
 
     this.state = State.FINISHED;
     this.blinkInterval = setInterval(this.toggleBlink, BLINK_INTERVAL_FINISHED);
+    COMPLETE.play();
   }
 
 
