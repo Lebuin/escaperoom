@@ -10,11 +10,11 @@ services:
     environment:
       - VIRTUAL_HOST=escaperoom.lenders.dev,escaperoom.seppelenders.be
       - LETSENCRYPT_HOST=escaperoom.lenders.dev,escaperoom.seppelenders.be
-    networks:
-      - reverse-proxy
+    # networks:
+    #   - reverse-proxy
 
 
-networks:
-  reverse-proxy:
-    external:
-      name: reverse-proxy_external
+# networks:
+#   reverse-proxy:
+#     external:
+#       name: reverse-proxy_external
