@@ -10,7 +10,7 @@ reader = SimpleMFRC522()
 tag_id = None
 timestamp = 0.0
 
-correct_tag_ids = (456534201530,)
+correct_tag_ids = (456534201530, 455666504894, 455278531785, 455730074820)
 
 try:
     while True:

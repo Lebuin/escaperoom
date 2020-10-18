@@ -23,6 +23,7 @@ mkdir /home/pi/.config/autostart
 cp escaperoom.desktop /home/pi/.config/autostart
 chown -R pi:pi /home/pi/.config/autostart
 
+mkdir /home/pi/Desktop
 cp *.desktop /home/pi/Desktop
 chown pi:pi /home/pi/Desktop/*.desktop
 
