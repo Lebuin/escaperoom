@@ -3,7 +3,7 @@
 
 ---
 
-* Edit some files on the boot partition of the SD card so that we can ssh into the RPI:
+* Edit some files on the boot partition of the SD card so that we can ssh into the RPI from the first boot. (Change the "ssid" and "psk" fields to the name and password of your local WiFi network.)
 
 
 ```
@@ -41,14 +41,3 @@ sudo reboot
 
 * Connect the RPI to a monitor and boot it up.
 * The escape room should now start automatically on boot every time.
-
-
-
-# Troubleshooting
-
-* **I don't hear any sound through the speakers**. Right click the sound icon in the top right corner of the RPI desktop, and make sure "AV jack" is selected and the volume is set to the maximum.
-* **I want to restart the escaperoom**. Right click anywhere except in the video -> click "Reload".
-* **I want to exit fullscreen**. Right click anywhere except in the video -> click "Exit full screen".
-* **The escaperoom is no longer in fullscreen**. Click the three dots in the top right corner. There is a small full screen button next the the "Zoom" buttons.
-* **I closed Chrome / Chrome has crashed**. Double click the `Escaperoom` file on the desktop and choose "Execute in terminal". This should restart the escaperoom.
-* **The tag reader doesn't work**. Make sure all the cables are wired correctly.
