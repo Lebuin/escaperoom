@@ -6,7 +6,7 @@ cd /opt/escaperoom/build
 apt-get install -y libffi-dev libssl-dev
 
 # Install rfid-reader.py dependencies
-pip3 install mfrc522 pyautogui
+pip3 install pyautogui
 
 # Don't show the setup and ssh warning
 rm /etc/xdg/autostart/piwiz.desktop  # Hide the setup
