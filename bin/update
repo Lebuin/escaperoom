@@ -3,5 +3,5 @@
 git pull
 docker-compose down && docker-compose up -d
 
-echo "\nPress any key to continue"
+echo -e "\nPress any key to continue"
 read
