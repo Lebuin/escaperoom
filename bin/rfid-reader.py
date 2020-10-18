@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import time
-from .mfrc522 import SimpleMFRC522
+from mfrc522 import SimpleMFRC522
 from RPi import GPIO
 import pyautogui
 
