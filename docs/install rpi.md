@@ -39,6 +39,16 @@ sudo reboot
 
 ---
 
-* SSH back into the RPI.
-* The escape room should now start automatically on boot every time. If it crashes, it can be restarted by double clicking the `Escaperoom` file on the desktop.
-* The first run may fail during the building of the Docker image, so it may be necessary to retry a few times.
+* Connect the RPI to a monitor and boot it up.
+* The escape room should now start automatically on boot every time.
+
+
+
+# Troubleshooting
+
+* **I don't hear any sound through the speakers**. Right click the sound icon in the top right corner of the RPI desktop, and make sure "AV jack" is selected and the volume is set to the maximum.
+* **I want to restart the escaperoom**. Right click anywhere except in the video -> click "Reload".
+* **I want to exit fullscreen**. Right click anywhere except in the video -> click "Exit full screen".
+* **The escaperoom is no longer in fullscreen**. Click the three dots in the top right corner. There is a small full screen button next the the "Zoom" buttons.
+* **I closed Chrome / Chrome has crashed**. Double click the `Escaperoom` file on the desktop. This should restart the escaperoom.
+* **The tag reader doesn't work**. Make sure all the cables are wired correctly.
