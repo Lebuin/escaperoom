@@ -2,7 +2,8 @@
 
 cd /opt/escaperoom
 
-git pull
+git fetch
+git checkout origin/master
 
 docker-compose down
 docker-compose up -d
