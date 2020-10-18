@@ -8,3 +8,6 @@ until curl http://localhost:8081 > /dev/null 2>&1; do
 done
 
 chromium-browser --start-fullscreen 'http://localhost:8081'
+
+echo "Press any key to continue"
+read

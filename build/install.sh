@@ -23,8 +23,8 @@ mkdir /home/pi/.config/autostart
 cp escaperoom.desktop /home/pi/.config/autostart
 chown -R pi:pi /home/pi/.config/autostart
 
-cp escaperoom.desktop /home/pi/Desktop
-chown pi:pi /home/pi/Desktop/escaperoom.desktop
+cp *.desktop /home/pi/Desktop
+chown pi:pi /home/pi/Desktop/*.desktop
 
 cp rfid-reader.service /lib/systemd/system
 systemctl daemon-reload

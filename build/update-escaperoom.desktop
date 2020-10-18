@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Update escaperoom
+Exec=lxterminal -e /opt/escaperoom/bin/update
