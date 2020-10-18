@@ -6,7 +6,7 @@ git fetch
 git checkout origin/master
 
 docker-compose down
-docker-compose up -d
+docker-compose up --build -d
 
 until curl http://localhost:8081 > /dev/null 2>&1; do
     sleep 1

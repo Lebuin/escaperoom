@@ -50,5 +50,5 @@ sudo reboot
 * **I want to restart the escaperoom**. Right click anywhere except in the video -> click "Reload".
 * **I want to exit fullscreen**. Right click anywhere except in the video -> click "Exit full screen".
 * **The escaperoom is no longer in fullscreen**. Click the three dots in the top right corner. There is a small full screen button next the the "Zoom" buttons.
-* **I closed Chrome / Chrome has crashed**. Double click the `Escaperoom` file on the desktop. This should restart the escaperoom.
+* **I closed Chrome / Chrome has crashed**. Double click the `Escaperoom` file on the desktop and choose "Execute in terminal". This should restart the escaperoom.
 * **The tag reader doesn't work**. Make sure all the cables are wired correctly.
