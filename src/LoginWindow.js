@@ -24,7 +24,7 @@ const KEY_MAP = {
   Numpad0: 'N',
   NumpadDecimal: 'T',
   Backspace: 'Backspace',
-}
+};
 const CREDENTIALS = {
   username: 'EWASTE',
   password: 'NXMDPK',
@@ -97,6 +97,10 @@ export default class LoginWindow extends Window {
     let focus = this.focus;
     let value = this[focus];
     let input = KEY_MAP[event.code];
+    // Uncomment to be able to type in the credentials with a regular keyboard.
+    // if(event.key.length === 1) {
+    //   input = event.key.toUpperCase();
+    // }
 
     if(input === 'Backspace') {
       value = value.substring(0, value.length - 1);
