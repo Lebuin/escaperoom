@@ -38,6 +38,7 @@ If the RPI is connected to the internet, it will automatically update itself whe
 
 # Troubleshooting
 
+* **The escaperoom keeps showing the "Screen locked" screen.** Your monitor may be too small. Try zooming out the Chrome window (Ctrl+-).
 * **I don't hear any sound through the speakers**. Right click the sound icon in the top right corner of the RPI desktop, and make sure "AV jack" is selected. Left click the sound icon and make sure the volume is set to the maximum.
 * **How can I restart the escaperoom?**. Right click anywhere except in the video -> click "Reload".
 * **How do I exit the full screen escape room window?**. Right click anywhere except in the video -> click "Exit full screen".
