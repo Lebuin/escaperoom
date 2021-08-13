@@ -4,7 +4,7 @@
 * Connect to the internet and execute the following commands on the RPI:
 
 ```
-# Fix laggy wireless mouses: add usbhid.mousepoll=0 to the single line in /boot/comdline.txt
+# Fix laggy wireless mouses: add usbhid.mousepoll=8 to the single line in /boot/cmdline.txt
 
 # Enable the SPI interface
 echo 'dtparam=spi=on' >> /media/seppe/boot/config.txt
