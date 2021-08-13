@@ -74,8 +74,6 @@ export default class TipsWindow extends Window {
     for(let i = 0; i <= this.index; i += 1) {
       if(i > 0) {
         text = text.concat([
-          '',
-          '       ─────',
           ''
         ]);
       }
