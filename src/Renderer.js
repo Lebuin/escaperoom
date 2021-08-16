@@ -5,17 +5,24 @@ import TipsWindow from './TipsWindow';
 import LoginWindow from './LoginWindow';
 import * as util from './util';
 
-import alarmUrl from './media/alarm.wav';
+import endWonUrl from './media/endWon.wav';
+import endWarningUrl from './media/endWarning.wav';
+import endLostUrl from './media/endLost.wav';
 import videoUrl from './media/escape.mp4';
 
 
-const ALARM = new Audio(alarmUrl);
+const END_WON = new Audio(endWonUrl);
+const END_WARNING = new Audio(endWarningUrl);
+const END_LOST = new Audio(endLostUrl);
 const BLINK_INTERVAL_FINISHED = 300;
 const State = Object.freeze({
   INITIALIZING: 'initializing',
   RUNNING: 'running',
   FINISHED: 'finished',
 });
+
+const END_WARNING_TIMESTAMP = 75 * 60 * 1000;
+const END_LOST_TIMESTAMP = 80 * 60 * 1000;
 
 
 export default class Renderer {
@@ -36,6 +43,7 @@ export default class Renderer {
       [State.FINISHED]: this.renderFinished.bind(this),
     };
 
+    this.start = null;
     this.width = 0;
     this.height = 0;
 
@@ -101,6 +109,8 @@ export default class Renderer {
     this.elemVideo.play();
 
     this.state = State.RUNNING;
+    setTimeout(() => this.playEndWarning(), END_WARNING_TIMESTAMP);
+    setTimeout(() => this.playEndLost(), END_LOST_TIMESTAMP);
 
     this.render();
   }
@@ -126,8 +136,21 @@ export default class Renderer {
 
     this.state = State.FINISHED;
     this.blinkInterval = setInterval(this.toggleBlink, BLINK_INTERVAL_FINISHED);
-    ALARM.loop = true;
-    ALARM.play();
+    END_WON.loop = true;
+    END_WON.play();
+  }
+
+
+  playEndWarning() {
+    if(this.state === State.RUNNING) {
+      END_WARNING.play();
+    }
+  }
+
+  playEndLost() {
+    if(this.state === State.RUNNING) {
+      END_LOST.play();
+    }
   }
 
 

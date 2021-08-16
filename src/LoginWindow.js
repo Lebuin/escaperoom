@@ -4,7 +4,7 @@ import * as util from './util';
 
 const PROGRESS_START = 6;
 const PROGRESS_END = 99;
-const PROGRESS_DURATION = 60 * 60 * 1000;
+const PROGRESS_DURATION = 80 * 60 * 1000;
 
 const KEY_MAP = {
   NumLock: 'K',
