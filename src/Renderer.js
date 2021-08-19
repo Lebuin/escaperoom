@@ -65,7 +65,7 @@ export default class Renderer {
     window.addEventListener('resize', this.onResize);
     this.onResize();
 
-    window.addEventListener('keypress', this.initialize);
+    window.addEventListener('keydown', this.initialize);
   }
 
   _bind() {
@@ -83,7 +83,7 @@ export default class Renderer {
 
 
   initialize() {
-    window.removeEventListener('keypress', this.initialize);
+    window.removeEventListener('keydown', this.initialize);
 
     this.windows = {
       binair: new BinaryWindow(),

@@ -25,4 +25,5 @@ Some final steps to make sure everything works:
 
 * The escaperoom should now start automatically on every boot. The first startup will take a while because the Docker image still needs to be built.
 * Make sure the badge scanner works.
-* Make sure the audio output is set to "AV Jack" (right click the volume control in the top right corner)
+* Make sure the keypad works inside the escape room.
+* Make sure you can hear audio in the escape room. If not: right click the OS volume control in the top right corner, and set the output to "AV Jack".

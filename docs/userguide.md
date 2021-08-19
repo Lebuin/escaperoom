@@ -38,10 +38,10 @@ If the RPI is connected to the internet, it will automatically update itself whe
 
 # Troubleshooting
 
-* **The escaperoom keeps showing the "Screen locked" screen.** Your monitor may be too small. Try zooming out the Chrome window (Ctrl+-).
-* **I don't hear any sound through the speakers**. Right click the sound icon in the top right corner of the RPI desktop, and make sure "AV jack" is selected. Left click the sound icon and make sure the volume is set to the maximum.
+* **The escaperoom keeps showing the "Screen locked" screen.** Your monitor may be too small. Try zooming out the Chrome window. (If a keyboard is connected: press `Ctrl+-` or scroll with the mouse while pressing `Ctrl`. If no keyboard is connected: exit fullscreen but make sure the window is maximized, open the Chrome menu with the three dots in the top right corner, and press the small `-` button next to `Zoom`.)
+* **I don't hear any sound through the speakers.** Right click the sound icon in the top right corner of the RPI desktop, and make sure "AV jack" is selected. Left click the sound icon and make sure the volume is set to the maximum.
 * **How can I restart the escaperoom?**. Right click anywhere except in the video -> click "Reload".
-* **How do I exit the full screen escape room window?**. Right click anywhere except in the video -> click "Exit full screen".
-* **The escaperoom is no longer in fullscreen**. Click the three dots in the top right corner. There is a small full screen button next the "Zoom" buttons.
-* **I closed Chrome / Chrome has crashed**. Double click the `Escaperoom` file on the desktop and choose "Execute in terminal". This should restart the escaperoom.
-* **The tag reader doesn't work**. Make sure all the cables are wired correctly.
+* **How do I exit the full screen escape room window?** Right click anywhere except in the video -> click "Exit full screen".
+* **The escaperoom is no longer in fullscreen.** Click the three dots in the top right corner. There is a small full screen button next the "Zoom" buttons.
+* **I closed Chrome / Chrome has crashed.** Double click the `Escaperoom` file on the desktop and choose "Execute in terminal". This should restart the escaperoom.
+* **The tag reader doesn't work.** Make sure all the cables are wired correctly.
